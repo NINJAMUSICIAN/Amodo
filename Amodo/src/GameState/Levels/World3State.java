@@ -69,6 +69,12 @@ public class World3State extends GameState {
 			ji.setPosition(1980, 415);
 			}
 		
+		if(gsm.getCurrentLevel() == 22){
+			zav.setPosition(300, 415);// 300 415
+			ji.setPosition(330, 415);
+			setActivePlayer(1);
+		}
+		
 	}	
 	@Override
 	public void init() {
@@ -127,6 +133,15 @@ public class World3State extends GameState {
 			doors.add(door);
 		}
 		
+		if(gsm.getCurrentLevel() == 22){
+			greenDoor = new Door(tileMap, "green");
+			greenDoor.setPosition(60, 161);
+			doors.add(greenDoor);
+			blueDoor = new Door(tileMap, "blue");
+			blueDoor.setPosition(120, 161);
+			doors.add(blueDoor);
+		}
+		
 	}
 	public void wandB(){
 		
@@ -137,6 +152,25 @@ public class World3State extends GameState {
 			button = new Button(tileMap, "left", "break", wall1);
 			button.setPosition(2224, 288);
 			buttons.add(button);
+		}
+		
+		if(gsm.getCurrentLevel() == 22){
+			wall1 = new Wall(2, "horizontal", "nothing", tileMap);
+			wall1.setPosition(288, 304);
+			walls.add(wall1);
+			button = new Button(tileMap, "left", "break", wall1);
+			button.setPosition(784, 160);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 272, 352);
+			button.setPosition(176, 256);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 272, 416);
+			button.setPosition(176, 256);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 272, 490);
+			button.setPosition(176, 256);
+			buttons.add(button);
+			
 			
 		}
 		
@@ -221,6 +255,11 @@ public class World3State extends GameState {
 		if(gsm.getCurrentLevel() == 21){
 			door.checkPlayers(ji, zav, moved);
 			checkRegularDoor();
+		}
+		if(gsm.getCurrentLevel() == 22){
+			greenDoor.checkJi(ji, moved);
+			blueDoor.checkZav(zav, moved);
+			checkColoredDoors();
 		}
 		
 	}
