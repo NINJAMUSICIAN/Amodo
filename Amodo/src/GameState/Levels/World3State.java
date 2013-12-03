@@ -74,6 +74,10 @@ public class World3State extends GameState {
 			ji.setPosition(330, 415);
 			setActivePlayer(1);
 		}
+		if(gsm.getCurrentLevel() == 23){
+			zav.setPosition(180, 256);
+			ji.setPosition(300, 510);
+		}
 		
 	}	
 	@Override
@@ -142,6 +146,15 @@ public class World3State extends GameState {
 			doors.add(blueDoor);
 		}
 		
+		if(gsm.getCurrentLevel() == 23){
+			blueDoor = new Door(tileMap, "blue");
+			blueDoor.setPosition(512, 194);
+			doors.add(blueDoor);
+			greenDoor = new Door(tileMap, "green");
+			greenDoor.setPosition(128, 258);
+			doors.add(greenDoor);
+		}
+		
 	}
 	public void wandB(){
 		
@@ -170,8 +183,18 @@ public class World3State extends GameState {
 			button = new Button(tileMap, "right", "trampoline", 272, 490);
 			button.setPosition(176, 256);
 			buttons.add(button);
-			
-			
+		}
+		
+		if(gsm.getCurrentLevel() == 23){
+			button = new Button(tileMap, "right", "trampoline", 272, 340);
+			button.setPosition(48, 160);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 272, 528);
+			button.setPosition(48, 160);
+			buttons.add(button);
+			button = new Button(tileMap, "left", "trampoline", 352, 434);
+			button.setPosition(592, 192);
+			buttons.add(button);
 		}
 		
 	}
@@ -262,6 +285,12 @@ public class World3State extends GameState {
 			checkColoredDoors();
 		}
 		
+		if(gsm.getCurrentLevel() == 23){
+			greenDoor.checkJi(ji, moved);
+			blueDoor.checkZav(zav, moved);
+			checkColoredDoors();
+		}
+		
 	}
 	@Override
 	public void update() {
@@ -315,14 +344,17 @@ public class World3State extends GameState {
 		tileMap.draw(g);
 //		pinkDoor.Draw(g);
 //		greenDoor.Draw(g);
-		for(int i = 0; i < buttons.size(); i++){
-			Button b = buttons.get(i);
-			b.draw(g);
-		}
+		
 		for(int i = 0; i < doors.size(); i++){
 			Door d = doors.get(i);
 			d.Draw(g);
 		}
+		
+		for(int i = 0; i < buttons.size(); i++){
+			Button b = buttons.get(i);
+			b.draw(g);
+		}
+		
 		for(int i = 0; i < players.size(); i++){
 			MapObject m = players.get(i);
 			m.draw(g);
