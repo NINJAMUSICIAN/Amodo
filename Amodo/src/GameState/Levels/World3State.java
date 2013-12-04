@@ -26,9 +26,9 @@ public class World3State extends GameState {
 	
 	private Ji ji;
 	private Zav zav;
-	private int moved; // if 0 not setting up if 1 setting up
+	private int moved = 0; // if 0 not setting up if 1 setting up
 	private int switchable = 0, switched = 0; //which player in the list you are controlling
-	private Door door, greenDoor, blueDoor;
+	private Door door, greenDoor, blueDoor, bdoor22, gdoor22;
 	@SuppressWarnings("unused")
 	private Button button;
 	@SuppressWarnings("unused")
@@ -83,6 +83,11 @@ public class World3State extends GameState {
 			zav.setPosition(80, 415);// 80 415
 			ji.setPosition(80, 200);//80 200
 			setActivePlayer(0);
+		}
+		
+		if(gsm.getCurrentLevel() == 25){
+			zav.setPosition(200, 440);
+			ji.setPosition(400, 440);
 		}
 		
 	}	
@@ -144,21 +149,21 @@ public class World3State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 22){
-			greenDoor = new Door(tileMap, "green");
-			greenDoor.setPosition(60, 161);
-			doors.add(greenDoor);
-			blueDoor = new Door(tileMap, "blue");
-			blueDoor.setPosition(120, 161);
-			doors.add(blueDoor);
+			gdoor22 = new Door(tileMap, "green");
+			gdoor22.setPosition(60, 161);
+			doors.add(gdoor22);
+			bdoor22 = new Door(tileMap, "blue");
+			bdoor22.setPosition(120, 161);
+			doors.add(bdoor22);
 		}
 		
 		if(gsm.getCurrentLevel() == 23){
-			blueDoor = new Door(tileMap, "blue");
-			blueDoor.setPosition(512, 194);
-			doors.add(blueDoor);
-			greenDoor = new Door(tileMap, "green");
-			greenDoor.setPosition(128, 258);
-			doors.add(greenDoor);
+			bdoor22 = new Door(tileMap, "blue");
+			bdoor22.setPosition(512, 194);
+			doors.add(bdoor22);
+			gdoor22 = new Door(tileMap, "green");
+			gdoor22.setPosition(128, 258);
+			doors.add(gdoor22);
 		}
 		
 		if(gsm.getCurrentLevel() == 24){
@@ -168,6 +173,12 @@ public class World3State extends GameState {
 			greenDoor = new Door(tileMap, "green");
 			greenDoor.setPosition(2496, 98);
 			doors.add(greenDoor);
+		}
+		
+		if(gsm.getCurrentLevel() == 25){
+			door = new Door(tileMap, "normal");
+			door.setPosition(260, 98);
+			doors.add(door);
 		}
 		
 	}
@@ -300,6 +311,26 @@ public class World3State extends GameState {
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
+	
+	public void checkDoors22(){
+		if(bdoor22.isSatisfied() && gdoor22.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 23;
+			doors.remove(bdoor22);
+			doors.remove(gdoor22);
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void checkDoors23(){
+		if(bdoor22.isSatisfied() && gdoor22.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 24;
+			doors.remove(bdoor22);
+			doors.remove(gdoor22);
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	
 	public void whatUpdate(){
 		
 		if(gsm.getCurrentLevel() == 20){
@@ -319,15 +350,15 @@ public class World3State extends GameState {
 			checkRegularDoor();
 		}
 		if(gsm.getCurrentLevel() == 22){
-			greenDoor.checkJi(ji, moved);
-			blueDoor.checkZav(zav, moved);
-			checkColoredDoors();
+			gdoor22.checkJi(ji, moved);
+			bdoor22.checkZav(zav, moved);
+			checkDoors22();
 		}
 		
 		if(gsm.getCurrentLevel() == 23){
-			greenDoor.checkJi(ji, moved);
-			blueDoor.checkZav(zav, moved);
-			checkColoredDoors();
+			gdoor22.checkJi(ji, moved);
+			bdoor22.checkZav(zav, moved);
+			checkDoors23();
 		}
 		
 		if(gsm.getCurrentLevel() == 24){
