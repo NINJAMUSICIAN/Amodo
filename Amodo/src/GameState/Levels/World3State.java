@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Entity.Button;
 import Entity.Door;
+import Entity.Images;
 import Entity.MapObject;
 import Entity.Wall;
 import Entity.Characters.Ji;
@@ -28,16 +29,18 @@ public class World3State extends GameState {
 	private Zav zav;
 	private int moved = 0; // if 0 not setting up if 1 setting up
 	private int switchable = 0, switched = 0; //which player in the list you are controlling
-	private Door door, greenDoor, blueDoor, bdoor22, gdoor22;
+	private Door door, greenDoor, blueDoor, bdoor22, gdoor22, door1, door2, door3;
 	@SuppressWarnings("unused")
 	private Button button;
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
+	private Images image;
 	
 	private ArrayList<Door> doors;
 	private ArrayList<MapObject> players;
 	private ArrayList<Wall> walls;
 	private ArrayList<Button> buttons;
+	private ArrayList<Images> pictures;
 	
 	
 	public World3State(GameStateManager gsm){
@@ -51,6 +54,7 @@ public class World3State extends GameState {
 		players.add(ji);
 		zav = new Zav(tileMap, true);
 		players.add(zav);
+		pictures = new ArrayList<Images>();
 		
 		if(gsm.getCurrentLevel() == 20){
 			zav.setPosition(100, 415);
@@ -88,6 +92,15 @@ public class World3State extends GameState {
 		if(gsm.getCurrentLevel() == 25){
 			zav.setPosition(200, 440);
 			ji.setPosition(400, 440);
+		}
+		
+		if(gsm.getCurrentLevel() == 26){
+			zav.setPosition(120, 415);
+			ji.setPosition(80, 415);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level26.png", 1280, 736);
+			image.setPosition(640, 368);
+			
+			pictures.add(image);
 		}
 		
 	}	
@@ -181,6 +194,18 @@ public class World3State extends GameState {
 			doors.add(door);
 		}
 		
+		if(gsm.getCurrentLevel() == 26){
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(1072, 608);
+			doors.add(door1);
+			door2 = new Door(tileMap, "normal");
+			door2.setPosition(1136, 608);
+			doors.add(door2);
+			door3 = new Door(tileMap, "normal");
+			door3.setPosition(1200, 608);
+			doors.add(door3);
+		}
+		
 	}
 	public void wandB(){
 		
@@ -246,6 +271,24 @@ public class World3State extends GameState {
 			button.setPosition(1312, 504);
 			buttons.add(button);
 		}
+		
+		if(gsm.getCurrentLevel() == 25){
+			wall1 = new Wall(2, "horizontal", "nothing", tileMap);
+			wall1.setPosition(192, 304);
+			walls.add(wall1);
+			button = new Button(tileMap, "right", "break", wall1);
+			button.setPosition(336, 88);
+			buttons.add(button);
+//			button = new Button(tileMap, "right", "trampoline", 176, 464);
+//			button.setPosition(336, 88);
+//			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 180, 496);
+			button.setPosition(336, 88);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 180, 368);
+			button.setPosition(336, 88);
+			buttons.add(button);
+			}
 		
 	}
 	
@@ -331,6 +374,17 @@ public class World3State extends GameState {
 		}
 	}
 	
+	public void checkFinalDoors(){
+		if(door1.isSatisfied() || door2.isSatisfied() || door3.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 27;
+			doors.remove(door1);
+			doors.remove(door2);
+			doors.remove(door3);
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	
 	public void whatUpdate(){
 		
 		if(gsm.getCurrentLevel() == 20){
@@ -365,6 +419,18 @@ public class World3State extends GameState {
 			greenDoor.checkJi(ji, moved);
 			blueDoor.checkZav(zav, moved);
 			checkColoredDoors();
+		}
+		
+		if(gsm.getCurrentLevel() == 25){
+				door.checkPlayers(ji, zav, moved);
+				checkRegularDoor();
+		}
+		
+		if(gsm.getCurrentLevel() == 26){
+			door1.checkPlayers(zav, moved);
+			door2.checkPlayers(zav, moved);
+			door3.checkPlayers(zav, moved);
+			checkFinalDoors();
 		}
 		
 	}
@@ -406,10 +472,20 @@ public class World3State extends GameState {
 			}
 		}
 		
+		for(int i = 0; i < pictures.size(); i++){
+			Images j = pictures.get(i);
+			j.update();
+		}
+		
+		if(gsm.getCurrentLevel() != 26){
 		tileMap.setPosition(
 				GamePanel.WIDTH / 2 - getActivePlayer().getx(),
 				GamePanel.HEIGHT / 2 - getActivePlayer().gety());
-		
+		}else{
+			tileMap.setPosition(
+					GamePanel.WIDTH / 2 - getActivePlayer().getx(),
+					0);
+		}
 		//wall.checkCollision(ji);
 
 	}
@@ -418,6 +494,12 @@ public class World3State extends GameState {
 	public void draw(Graphics2D g) {
 		bg.draw(g);
 		tileMap.draw(g);
+		
+		for(int i = 0; i < pictures.size(); i++){
+			Images j = pictures.get(i);
+			j.draw(g);
+		}
+		
 //		pinkDoor.Draw(g);
 //		greenDoor.Draw(g);
 		

@@ -1,9 +1,7 @@
 /Audio
-/Backgrounds
 /Entity
 /GameState
 /Main
-/Maps
-/Sprites
 /TileMap
-/Tilesets
+/Backgrounds
+/Maps
