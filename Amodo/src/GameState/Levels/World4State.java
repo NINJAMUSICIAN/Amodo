@@ -11,6 +11,7 @@ import Entity.MapObject;
 import Entity.Wall;
 import Entity.Characters.Ji;
 import Entity.Characters.Rae;
+import Entity.Characters.Zav;
 import GameState.GameState;
 import GameState.GameStateManager;
 import GameState.Keys;
@@ -27,9 +28,10 @@ public class World4State extends GameState {
 	
 	private Ji ji;
 	private Rae rae;
+	private Zav zav;
 	private int moved = 0; // if 0 not setting up if 1 setting up
 	private int switchable = 0, switched = 0; //which player in the list you are controlling
-	private Door door, greenDoor, pinkDoor, door1, door2, door3;
+	private Door door, greenDoor, pinkDoor, blueDoor, door1, door2, door3;
 	private Button button;
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
@@ -55,7 +57,9 @@ public class World4State extends GameState {
 		players.add(rae);
 		}else{
 			rae = new Rae(tileMap, true);
+			zav = new Zav(tileMap, true);
 			players.add(rae);
+			players.add(zav);
 		}
 		pictures = new ArrayList<Images>();
 		
@@ -82,14 +86,15 @@ public class World4State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 30){
-			rae.setPosition(400, 290);
-			ji.setPosition(80, 130);
-			image = new Images(tileMap, "/Backgrounds/Texts/Level30.png", 640, 800);
-			image.setPosition(320, 400);
+			rae.setPosition(656, 290);
+			ji.setPosition(656, 130);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level30.png", 896, 800);
+			image.setPosition(447, 400);
 			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 31){
-			rae.setPosition(1200, 415);
+			zav.setPosition(225, 500);
+			rae.setPosition(415, 500);
 		}
 		
 	}	
@@ -150,23 +155,24 @@ public class World4State extends GameState {
 		
 		if(gsm.getCurrentLevel() == 30){
 			door1 = new Door(tileMap, "normal");
-			door1.setPosition(540, 650);
+			door1.setPosition(64, 518);//518
 			doors.add(door1);
 			door2 = new Door(tileMap, "normal");
-			door2.setPosition(585, 650);
+			door2.setPosition(120, 518);
 			doors.add(door2);
+			door3 = new Door(tileMap, "normal");
+			door3.setPosition(186, 518);
+			doors.add(door3);
 		}
 		
 		if(gsm.getCurrentLevel() == 31){
-			door1 = new Door(tileMap, "normal");
-			door1.setPosition(64, 732);
-			doors.add(door1);
-			door2 = new Door(tileMap, "normal");
-			door2.setPosition(120, 732);
-			doors.add(door2);
-			door3 = new Door(tileMap, "normal");
-			door3.setPosition(186, 732);
-			doors.add(door3);
+			blueDoor = new Door(tileMap, "blue");
+			blueDoor.setPosition(64, 98);
+			doors.add(blueDoor);
+			pinkDoor = new Door(tileMap, "pink");
+			pinkDoor.setPosition(574, 98);
+			doors.add(pinkDoor);
+			
 		}
 		
 	}
@@ -192,6 +198,30 @@ public class World4State extends GameState {
 			//public Button(TileMap tm, String dir, String what, int wallX, int wallY)
 		}
 		
+		if(gsm.getCurrentLevel() == 30){
+			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+			wall1.setPosition(576, 272);
+			walls.add(wall1);
+			
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(784, 640);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(816, 640);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(848, 640);
+			buttons.add(button);
+		}
+		
+		if(gsm.getCurrentLevel() == 31){
+			button = new Button(tileMap, "up", "trampoline", 464, 272);
+			button.setPosition(320, 152);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "trampoline", 208, 272);
+			button.setPosition(320, 152);
+			buttons.add(button);
+		}
 		
 	}
 	
@@ -236,7 +266,7 @@ public class World4State extends GameState {
 			Wall w = walls.get(i);
 			walls.remove(w);
 		}
-		ji.setPosition(jiStart.x, jiStart.y);
+		//ji.setPosition(jiStart.x, jiStart.y);
 		rae.setPosition(zavStart.x, zavStart.y);
 		//zav.setpos
 		populateDoors();
@@ -257,6 +287,15 @@ public class World4State extends GameState {
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
+	
+	public void checkColoredDoors2(){
+		if(pinkDoor.isSatisfied() && blueDoor.isSatisfied()){
+			players.clear();
+			gsm.currentLevel++;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	
 	public void checkRegularDoor28(){
 		if(door3.isSatisfied()){
 			gsm.currentLevel = 29;
@@ -298,15 +337,15 @@ public class World4State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 30){
-			door1.checkPlayers(ji, moved);
-			door2.checkPlayers(ji, moved);
-			check30Doors();
-		}
-		if(gsm.getCurrentLevel() == 31){
 			door1.checkPlayers(rae, moved);
 			door2.checkPlayers(rae, moved);
 			door3.checkPlayers(rae, moved);
 			check31Doors();
+		}
+		if(gsm.getCurrentLevel() == 31){
+			blueDoor.checkPlayers(zav, moved);
+			pinkDoor.checkPlayers(rae, moved);
+			checkColoredDoors2();
 		}
 	}
 	@Override
@@ -316,6 +355,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() < 31){
 		ji.update();	
 		ji.checkCatch(rae);
+		}else{
+			zav.update();	
+			zav.checkCatch(rae);
 		}
 		rae.update();
 		
@@ -336,8 +378,13 @@ public class World4State extends GameState {
 		
 		for(int i = 0; i < buttons.size(); i++){
 			Button b = buttons.get(i);
+			if(gsm.getCurrentLevel() < 31){
 			b.checkPress(ji);
 			b.updateWall(ji);
+			}else{
+			b.checkPress(zav);
+			b.updateWall(zav);
+			}
 			b.checkPress(rae);
 			b.updateWall(rae);
 			b.update();
@@ -360,7 +407,7 @@ public class World4State extends GameState {
 			j.update();
 		}
 		
-		if(gsm.getCurrentLevel() == 30 || gsm.getCurrentLevel() == 31){
+		if(gsm.getCurrentLevel() == 30){
 			tileMap.setPosition(
 					GamePanel.WIDTH / 2 - getActivePlayer().getx(),
 					0);
