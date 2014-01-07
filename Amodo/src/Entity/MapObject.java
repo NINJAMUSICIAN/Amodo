@@ -74,6 +74,12 @@ public abstract class MapObject {
 		return r1.intersects(r2);
 	}
 	
+	public void setCurrentAction(int c){
+		dx = 0;
+		
+		currentAction = c;
+	}
+	
 	public Rectangle getRectangle(){
 		return new Rectangle(
 				(int)x - cwidth,

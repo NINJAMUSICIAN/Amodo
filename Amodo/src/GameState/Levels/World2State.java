@@ -514,22 +514,28 @@ public class World2State extends GameState {
 	
 	}
 
-	public void handleInput(){
-for(int i = 0; i < players.size(); i++){
+	public void handleInput() {
+		for(int i = 0; i < players.size(); i++){
 			
 			MapObject m = players.get(switchable);
 			
-		m.setUp(Keys.keyState[Keys.UP]);
-		m.setLeft(Keys.keyState[Keys.LEFT]);
-		m.setDown(Keys.keyState[Keys.DOWN]);
-		m.setRight(Keys.keyState[Keys.RIGHT]);
-		m.setJumping(Keys.keyState[Keys.BUTTON1]);
+			m.setUp(Keys.keyState[Keys.UP]);
+			m.setLeft(Keys.keyState[Keys.LEFT]);
+			m.setDown(Keys.keyState[Keys.DOWN]);
+			m.setRight(Keys.keyState[Keys.RIGHT]);
+			m.setJumping(Keys.keyState[Keys.BUTTON1]);
+			
+			if(Keys.isPressed(Keys.BUTTON2)){
+				m.setUp(false);
+				m.setLeft(false);
+				m.setDown(false);
+				m.setRight(false);
+				m.setJumping(false);
+				switchActiveUp();
+				
+			}else{
+				switched = 0;
+			}
 		}
-		if(Keys.isPressed(Keys.BUTTON2)){ switchActiveUp();
-		}else{
-			switched = 0;
-		}
-		if(Keys.isPressed(Keys.BUTTON3)) restart();
-	
-	} 	
+	}
 }

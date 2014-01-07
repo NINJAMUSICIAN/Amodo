@@ -31,7 +31,7 @@ public class World4State extends GameState {
 	private Zav zav;
 	private int moved = 0; // if 0 not setting up if 1 setting up
 	private int switchable = 0, switched = 0; //which player in the list you are controlling
-	private Door door, greenDoor, pinkDoor, blueDoor, door1, door2, door3;
+	private Door door, greenDoor, pinkDoor, blueDoor, door1, door2, door3,  pinkDoor1, blueDoor1;
 	private Button button;
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
@@ -92,9 +92,38 @@ public class World4State extends GameState {
 			image.setPosition(447, 400);
 			pictures.add(image);
 		}
+		
 		if(gsm.getCurrentLevel() == 31){
+			zav.setPosition(544, 80);
+			rae.setPosition(80, 80);
+		}
+		
+		if(gsm.getCurrentLevel() == 32){
 			zav.setPosition(225, 500);
 			rae.setPosition(415, 500);
+		}
+		
+		if(gsm.getCurrentLevel() == 33){
+			rae.setPosition(310, 700);
+			zav.setPosition(370, 700);
+		}
+		
+		if(gsm.getCurrentLevel() == 34){
+			rae.setPosition(752, 1472);// 400 1472
+			zav.setPosition(656, 1472);
+		}
+		if(gsm.getCurrentLevel() == 35){
+			rae.setPosition(400, 415);
+			zav.setPosition(230, 460);
+		}
+		
+		if(gsm.getCurrentLevel() == 36){
+			rae.setPosition(144, 900);
+			zav.setPosition(496, 900);
+		}
+		if(gsm.getCurrentLevel() == 37){
+			rae.setPosition( 258, 90);
+			zav.setPosition(384, 90);
 		}
 		
 	}	
@@ -166,13 +195,54 @@ public class World4State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 31){
+			pinkDoor1 = new Door(tileMap, "pink");
+			pinkDoor1.setPosition(254, 418);
+			doors.add(pinkDoor1);
+			blueDoor1 = new Door(tileMap, "blue");
+			blueDoor1.setPosition(384, 418);
+			doors.add(blueDoor1);	
+		}
+		
+		if(gsm.getCurrentLevel() == 32){
 			blueDoor = new Door(tileMap, "blue");
 			blueDoor.setPosition(64, 98);
 			doors.add(blueDoor);
 			pinkDoor = new Door(tileMap, "pink");
 			pinkDoor.setPosition(574, 98);
-			doors.add(pinkDoor);
-			
+			doors.add(pinkDoor);	
+		}
+		
+		if(gsm.getCurrentLevel() == 33){
+			door = new Door(tileMap, "normal");
+			door.setPosition(544, 162);//518
+			doors.add(door);
+		}
+		
+		if(gsm.getCurrentLevel() == 34){
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(928, 130);
+			doors.add(door1);
+		}
+		
+		if(gsm.getCurrentLevel() == 35){
+			door = new Door(tileMap, "normal");
+			door.setPosition(560, 98);
+			doors.add(door);
+		}
+		
+		if(gsm.getCurrentLevel() == 36){
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(1152, 354);
+			doors.add(door1);
+		}
+		
+		if(gsm.getCurrentLevel() == 37){
+			blueDoor = new Door(tileMap, "blue");
+			blueDoor.setPosition(384, 610);
+			doors.add(blueDoor);
+			pinkDoor = new Door(tileMap, "pink");
+			pinkDoor.setPosition(258, 610);
+			doors.add(pinkDoor);	 
 		}
 		
 	}
@@ -214,13 +284,42 @@ public class World4State extends GameState {
 			buttons.add(button);
 		}
 		
-		if(gsm.getCurrentLevel() == 31){
+		if(gsm.getCurrentLevel() == 32){
 			button = new Button(tileMap, "up", "trampoline", 464, 272);
 			button.setPosition(320, 152);
 			buttons.add(button);
 			button = new Button(tileMap, "up", "trampoline", 208, 272);
 			button.setPosition(320, 152);
 			buttons.add(button);
+		}
+		
+		if(gsm.getCurrentLevel() == 33){
+			button = new Button(tileMap, "left", "trampoline", 400,684);
+			button.setPosition(624,592);
+			buttons.add(button);
+			button = new Button(tileMap, "right", "trampoline", 336,544);
+			button.setPosition(48,464);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "trampoline", 352,416);
+			button.setPosition(462,344);
+			buttons.add(button);
+		}
+		
+		if(gsm.getCurrentLevel() == 37){
+			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+			wall1.setPosition(178, 592); /*384*/
+			walls.add(wall1);
+			wall2 = new Wall(3, "vertical", "nothing", tileMap);
+			wall2.setPosition(464 , 592); /*384*/
+			walls.add(wall2);
+			
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(390, 440);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall2);
+			button.setPosition(250, 440);
+			buttons.add(button);
+			
 		}
 		
 	}
@@ -304,16 +403,45 @@ public class World4State extends GameState {
 		}
 	}
 	public void check30Doors(){
-		if(door1.isSatisfied() || door2.isSatisfied()){
+		if(door1.isSatisfied() || door2.isSatisfied() || door3.isSatisfied()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
 	public void check31Doors(){
-		if(door1.isSatisfied() || door2.isSatisfied() || door3.isSatisfied()){
+		if(pinkDoor1.isSatisfied() && blueDoor1.isSatisfied()){
 			players.clear();
-			gsm.currentLevel++;
+			doors.clear();
+			gsm.currentLevel = 32;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check33Doors(){
+		if(door.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 34;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check34Doors(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 35;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check35Doors(){
+		if(door.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 36;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check36Doors(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 37;
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
@@ -340,13 +468,49 @@ public class World4State extends GameState {
 			door1.checkPlayers(rae, moved);
 			door2.checkPlayers(rae, moved);
 			door3.checkPlayers(rae, moved);
-			check31Doors();
+			check30Doors();
 		}
 		if(gsm.getCurrentLevel() == 31){
+			blueDoor1.checkPlayers(zav, moved);
+			pinkDoor1.checkPlayers(rae, moved);
+			check31Doors();
+		}
+		
+		if(gsm.getCurrentLevel() == 32){
 			blueDoor.checkPlayers(zav, moved);
 			pinkDoor.checkPlayers(rae, moved);
 			checkColoredDoors2();
 		}
+		
+		if(gsm.getCurrentLevel() == 33){
+			door.checkPlayers(rae, moved);
+			check33Doors();
+		}
+		
+
+		if(gsm.getCurrentLevel() == 34){
+			door1.checkPlayers(rae, moved);
+			check34Doors();
+		}
+
+		if(gsm.getCurrentLevel() == 35){
+			door.checkPlayers(rae, moved);
+			check35Doors();
+		}
+		
+		if(gsm.getCurrentLevel() == 36){
+			door1.checkPlayers(rae, moved);
+			check36Doors();
+		}
+		
+		if(gsm.getCurrentLevel() == 37){
+			blueDoor.checkZav(zav, moved);
+			pinkDoor.checkRae(rae, moved);
+			checkColoredDoors2();
+		}
+		
+		
+		
 	}
 	@Override
 	public void update() {
@@ -393,8 +557,12 @@ public class World4State extends GameState {
 		for(int i = 0; i < walls.size(); i++){
 			Wall w = walls.get(i);
 			if(!w.removed()){
+				if(gsm.getCurrentLevel() < 31){
 			w.checkCollision(ji);
+				}else{
+			w.checkCollision(zav);		
 			w.checkCollision(rae);
+				}
 			}
 			if(w.shouldRemove()){
 				walls.remove(w);
@@ -467,13 +635,22 @@ public class World4State extends GameState {
 			m.setDown(Keys.keyState[Keys.DOWN]);
 			m.setRight(Keys.keyState[Keys.RIGHT]);
 			m.setJumping(Keys.keyState[Keys.BUTTON1]);
+			
+			if(Keys.isPressed(Keys.BUTTON2)){
+				m.setUp(false);
+				m.setLeft(false);
+				m.setDown(false);
+				m.setRight(false);
+				m.setJumping(false);
+				switchActiveUp();
+				
+			}else{
+				switched = 0;
+			}
+			
 		}
 		
-		if(Keys.isPressed(Keys.BUTTON2)){
-			switchActiveUp();
-		}else{
-			switched = 0;
-		}
+		
 		
 		if(Keys.isPressed(Keys.BUTTON3)) restart();
 	}

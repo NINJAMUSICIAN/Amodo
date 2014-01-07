@@ -48,7 +48,7 @@ public class Rae extends MapObject{
 		stopSpeed = 0.4;
 		fallSpeed = 0.15;
 		maxFallSpeed = 4.0;
-		jumpStart = -5.8;
+		jumpStart = -5.8;//-5.8
 		stopJumpSpeed = 0.3;
 		
 		facingRight = righting;
