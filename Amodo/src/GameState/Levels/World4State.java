@@ -24,7 +24,7 @@ public class World4State extends GameState {
 	private TileMap tileMap;
 	private Background bg;
 	
-	private Point jiStart, zavStart;
+	private Point jiStart, zavStart, raeStart;
 	
 	private Ji ji;
 	private Rae rae;
@@ -126,6 +126,20 @@ public class World4State extends GameState {
 			zav.setPosition(384, 90);
 		}
 		
+		if(gsm.getCurrentLevel() == 38){
+			rae.setPosition(60, 250);
+			zav.setPosition(60, 415);
+		}
+		
+		if(gsm.getCurrentLevel() == 39){
+			rae.setPosition(60, 250);
+			zav.setPosition(60, 415);
+		}
+		if(gsm.getCurrentLevel() == 40){
+			rae.setPosition(1424, 940);//1424 940
+			zav.setPosition(1286, 940);//
+		}
+		
 	}	
 	@Override
 	public void init() {
@@ -146,8 +160,10 @@ public class World4State extends GameState {
 		setItUp();
 		if(gsm.getCurrentLevel() < 31){
 		jiStart = new Point(ji.getx(), ji.gety());
+		}else{
+		zavStart = new Point(zav.getx(), zav.gety());
 		}
-		setZavStart(new Point(rae.getx(), rae.gety()));
+		setRaeStart(new Point(rae.getx(), rae.gety()));
 		
 		bg = new Background("/Backgrounds/cloudbg.png", 0.1);
 		bg.setVector(-0.1, 0);
@@ -245,6 +261,23 @@ public class World4State extends GameState {
 			doors.add(pinkDoor);	 
 		}
 		
+		if(gsm.getCurrentLevel() == 38){
+			door = new Door(tileMap, "normal");
+			door.setPosition(1088, 257);
+			doors.add(door);
+		}
+		if(gsm.getCurrentLevel() == 39){
+			door = new Door(tileMap, "normal");
+			door.setPosition(1500, 257);
+			doors.add(door);
+		}
+		
+		if(gsm.getCurrentLevel() == 40){
+			door = new Door(tileMap, "normal");
+			door.setPosition(1600, 129);
+			doors.add(door);
+		}
+		
 	}
 	public void wandB(){
 		if(gsm.getCurrentLevel() == 27){
@@ -322,6 +355,75 @@ public class World4State extends GameState {
 			
 		}
 		
+		if(gsm.getCurrentLevel() == 38){
+			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+			wall1.setPosition(319, 401);
+			walls.add(wall1);
+			wall2 = new Wall(3, "vertical", "nothing", tileMap);
+			wall2.setPosition(575, 401);
+			walls.add(wall2);
+			wall3 = new Wall(3, "vertical", "nothing", tileMap);
+			wall3.setPosition(831, 401);
+			walls.add(wall3);
+			
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(319, 280);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall2);
+			button.setPosition(575, 280);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall3);
+			button.setPosition(831, 280);
+			buttons.add(button);
+			
+		}
+		
+		if(gsm.getCurrentLevel() == 39){
+			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+			wall1.setPosition(415, 401);
+			walls.add(wall1);
+			wall2 = new Wall(3, "vertical", "nothing", tileMap);
+			wall2.setPosition(763, 401);
+			walls.add(wall2);
+			wall3 = new Wall(3, "vertical", "nothing", tileMap);
+			wall3.setPosition(1119, 401);
+			walls.add(wall3);
+			
+			button = new Button(tileMap, "up", "break", wall1);
+			button.setPosition(415, 280);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall2);
+			button.setPosition(763, 280);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "break", wall3);
+			button.setPosition(1119, 280);
+			buttons.add(button);
+		}
+		
+		if(gsm.getCurrentLevel() == 40){
+			
+//			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+//			wall1.setPosition(1296, 273);
+//			walls.add(wall1);
+			
+			button = new Button(tileMap, "up", "trampoline", 48, 710);
+			button.setPosition(48, 792);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "trampoline", 48, 480);
+			button.setPosition(48, 792);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "trampoline", 2768, 710);
+			button.setPosition(2768, 792);
+			buttons.add(button);
+			button = new Button(tileMap, "up", "trampoline", 2768, 480);
+			button.setPosition(2768, 792);
+			buttons.add(button);
+			
+//			button = new Button(tileMap, "down", "break", wall1);
+//			button.setPosition(1488, 238);
+//			buttons.add(button);
+		}
+		
 	}
 	
 	public void switchActiveUp(){
@@ -365,8 +467,12 @@ public class World4State extends GameState {
 			Wall w = walls.get(i);
 			walls.remove(w);
 		}
-		//ji.setPosition(jiStart.x, jiStart.y);
-		rae.setPosition(zavStart.x, zavStart.y);
+		if(gsm.getCurrentLevel() < 31){
+		ji.setPosition(jiStart.x, jiStart.y);
+		}else{
+			zav.setPosition(zavStart.x, zavStart.y);
+		}
+		rae.setPosition(raeStart.x, raeStart.y);
 		//zav.setpos
 		populateDoors();
 		wandB();
@@ -509,6 +615,19 @@ public class World4State extends GameState {
 			checkColoredDoors2();
 		}
 		
+		if(gsm.getCurrentLevel() == 38){
+			door.checkPlayers(rae, moved);
+			checkRegularDoor();
+		}
+		if(gsm.getCurrentLevel() == 39){
+			door.checkPlayers(rae, moved);
+			checkRegularDoor();
+		}
+		
+		if(gsm.getCurrentLevel() == 40){
+			door.checkPlayers(rae, moved);
+			checkRegularDoor();
+		}
 		
 		
 	}
@@ -534,7 +653,7 @@ public class World4State extends GameState {
 			//restart();
 			}
 		}else{
-			if(rae.fellDead()){
+			if(rae.fellDead() || zav.fellDead()){
 				restart();
 			}
 		}
@@ -569,6 +688,8 @@ public class World4State extends GameState {
 				i--;
 			}
 		}
+		
+		wall1.checkCollision(zav);;
 		
 		for(int i = 0; i < pictures.size(); i++){
 			Images j = pictures.get(i);
@@ -661,7 +782,15 @@ public class World4State extends GameState {
 
 	public void setZavStart(Point zavStart) {
 		this.zavStart = zavStart;
-	} 	
+	} 
+	
+	public Point getRaeStart() {
+		return raeStart;
+	}
+
+	public void setRaeStart(Point raeStart) {
+		this.raeStart = raeStart;
+	} 
 }
 
 
