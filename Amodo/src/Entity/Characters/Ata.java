@@ -38,10 +38,10 @@ public class Ata extends MapObject{
 		super(tm);
 		this.tiley = tm;
 		
-		width = 22;
-		height = 53;
-		cwidth = 22;
-		cheight = 53;
+		width = 33;
+		height = 65;
+		cwidth = 33;
+		cheight = 63;
 		
 		moveSpeed = 0.8;
 		maxSpeed = 2.0;
@@ -58,7 +58,7 @@ public class Ata extends MapObject{
 		try {
 			
 			BufferedImage spritesheet = ImageIO.read(
-					getClass().getResourceAsStream("/Sprites/RaizelSheet.png"));
+					getClass().getResourceAsStream("/Sprites/AtaSheet.png"));
 			
 			sprites = new ArrayList<BufferedImage[]>();
 			for(int i = 0; i < 4; i++){
@@ -73,15 +73,15 @@ public class Ata extends MapObject{
  							height);
  				} else if(i == 1 || i == 3){
  					bi[j] = spritesheet.getSubimage(
- 					j * 30,
+ 					j * 33,
  					i * height, 
- 					30,
+ 					33,
  					height);
  				}else if(i == 2){
  					bi[j] = spritesheet.getSubimage(
- 		 					j * 31,
+ 		 					j * 33,
  		 					i * height, 
- 		 					31,
+ 		 					33,
  		 					height);
  				}
  			}
@@ -98,7 +98,7 @@ public class Ata extends MapObject{
 		animation.setDelay(400);
 		
 		sfx = new HashMap<String, AudioPlayer>();
-		sfx.put("jump", new AudioPlayer("/Audio/FX/Jumping/AtaJump.mp3"));
+		sfx.put("jump", new AudioPlayer("/Audio/FX/Jumping/RaeJump.mp3"));
 		
 	}
 	
@@ -200,8 +200,8 @@ if(falling) {
 			currentAction = FALLING;
 			animation.setFrames(sprites.get(FALLING));
 			animation.setDelay(100);
-			cwidth = 30;
-			width = 30;
+			cwidth = 33;
+			width = 33;
 		}
 	}else if(dy < 0){
 		if(currentAction != JUMPING){
@@ -209,24 +209,24 @@ if(falling) {
 			animation.setFrames(sprites.get(JUMPING));
 			animation.setDelay(100);
 			
-			cwidth = 31;
-			width = 31;
+			cwidth = 33;
+			width = 33;
 		}
 	}else if(right || left){
 		if(currentAction != WALKING){
 			currentAction = WALKING;
 			animation.setFrames(sprites.get(WALKING));
 			animation.setDelay(80);
-			cwidth = 30;
-			width = 30;
+			cwidth = 33;
+			width = 33;
 			}
 		}else{
 			if(currentAction != IDLE){
 				currentAction = IDLE;
 				animation.setFrames(sprites.get(IDLE));
 				animation.setDelay(400);
-				cwidth = 22;
-				width = 22;
+				cwidth = 33;
+				width = 33;
 			}
 		}
 	animation.update();

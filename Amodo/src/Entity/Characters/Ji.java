@@ -291,5 +291,27 @@ if(falling) {
 		this.maxHealth = maxHealth;
 		return maxHealth;
 	}
+
+	public void checkCatch(Ata ata) {
+		// TODO Auto-generated method stub
+	
+	boolean caught = false;
+	
+	if(ata.getx() - 10 < getx() && (ata.getx() + ata.getCWidth() + 10) > (getx() + getCWidth())){ 
+		if(ata.gety() + ata.getCHeight() <= gety() &&
+				ata.gety() + ata.getCHeight() >= gety() - 5){
+			if(ata.getCurrentAction() == FALLING){
+					
+				sfx.get("bounce").play();
+				ata.setDy(bounceSpeed);
+			}
+					
+			caught = true;
+		}
+		
+	}
+	//System.out.println(caught);
+	}
+	//System.out.println(caught);
 	
 }

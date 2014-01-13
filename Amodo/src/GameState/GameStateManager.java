@@ -8,13 +8,14 @@ public class GameStateManager {
 	private GameState[] gameStates;
 	private int currentState;
 	
-	public int currentLevel = 40;
+	public int currentLevel = 43;
 	
 	public static final int NUMGAMESTATES = 20;
 	public static final int LEVEL1STATE = 0;
 	public static final int LEVEL2STATE = 1;
 	public static final int LEVEL3STATE = 2;
 	public static final int LEVEL4STATE = 3;
+	public static final int LEVEL5STATE = 4;
 	public static final int LOADINGSTATE = 19;
 	
 	
@@ -40,6 +41,8 @@ public class GameStateManager {
 			gameStates[state] = new World3State(this);
 		}if(state == LEVEL4STATE){
 			gameStates[state] = new World4State(this);
+		}if(state == LEVEL5STATE){
+		        gameStates[state] = new World5State(this);	
 		}
 	}
 	

@@ -9,15 +9,6 @@ import javax.swing.JPanel;
 import GameState.GameStateManager;
 import GameState.Keys;
 
-/* one day i hope to be able to
- * stop circumstances from ruining my happiness
- * and instead take joy in the small things. 
- * I know she's sleeping
- * i know she's pissed
- * and i know that i ruined it
-  
-  I'm sorry Raquel*/
-
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel 
 	implements Runnable, KeyListener{

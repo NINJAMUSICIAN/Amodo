@@ -273,9 +273,9 @@ public class World4State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 40){
-			door = new Door(tileMap, "normal");
-			door.setPosition(1600, 129);
-			doors.add(door);
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(1600, 129);
+			doors.add(door1);
 		}
 		
 	}
@@ -551,6 +551,13 @@ public class World4State extends GameState {
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
+	public void check40Door(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 41;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
 	
 	
 	public void whatUpdate(){
@@ -625,8 +632,8 @@ public class World4State extends GameState {
 		}
 		
 		if(gsm.getCurrentLevel() == 40){
-			door.checkPlayers(rae, moved);
-			checkRegularDoor();
+			door1.checkPlayers(rae, moved);
+			check40Door();
 		}
 		
 		
@@ -689,7 +696,7 @@ public class World4State extends GameState {
 			}
 		}
 		
-		wall1.checkCollision(zav);;
+		//wall1.checkCollision(zav);;
 		
 		for(int i = 0; i < pictures.size(); i++){
 			Images j = pictures.get(i);

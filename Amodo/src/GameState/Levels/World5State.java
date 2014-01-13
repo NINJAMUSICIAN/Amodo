@@ -1,5 +1,5 @@
 package GameState.Levels;
-
+//{{
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import Main.GamePanel;
 import TileMap.Background;
 import TileMap.TileMap;
 
-public class World4State extends GameState {
+public class World5State extends GameState {
 
 	private TileMap tileMap;
 	private Background bg;
@@ -43,7 +43,7 @@ public class World4State extends GameState {
 	private ArrayList<Images> pictures;
 	
 	
-	public World4State(GameStateManager gsm){
+	public World5State(GameStateManager gsm){
 		this.gsm = gsm;
 		init();
 	}
@@ -55,7 +55,18 @@ public class World4State extends GameState {
 		players.add(ata);
 		pictures = new ArrayList<Images>();
 		
-		
+		if(gsm.getCurrentLevel() == 41){
+			ji.setPosition(100, 100);
+			ata.setPosition(535, 100);
+		}		
+		if(gsm.getCurrentLevel() == 42){
+			ji.setPosition(100, 415);
+			ata.setPosition(160, 415);
+		}
+		if(gsm.getCurrentLevel() == 43){
+			ji.setPosition(100, 511);
+			ata.setPosition(100, 511);
+		}	
 	}	
 	@Override
 	public void init() {
@@ -67,33 +78,53 @@ public class World4State extends GameState {
 		tileMap.loadMap("/Maps/Level" + gsm.getCurrentLevel() + ".map");
 		System.out.println("/Maps/Level" + gsm.getCurrentLevel() + ".map");
 		
-		tileMap.loadTiles("/Tilesets/ZavSet.png");
+		tileMap.loadTiles("/Tilesets/TheDeepTileset.png");
 		tileMap.setPosition(-0, 0);
 		
 		players = new ArrayList<MapObject>();
 	
-//		
+//}}		
 		setItUp();
 		jiStart = new Point(ji.getx(), ji.gety());
 		setAtaStart(new Point(ata.getx(), ata.gety()));
 		
-		bg = new Background("/Backgrounds/cloudbg.png", 0.1);
-		bg.setVector(-0.1, 0);
+		bg = new Background("/Backgrounds/DeepBackground.png", 0.1);
 		tileMap.setPosition(0, 0);
 		tileMap.setTween(1);
 		
 		populateDoors();
 		wandB();
 	}
+//{{{add Parts
 	public void populateDoors(){
 		
 		doors = new ArrayList<Door>();
 		
+		if(gsm.getCurrentLevel() == 41){
+			purpleDoor = new Door(tileMap, "purple");
+			greenDoor = new Door(tileMap, "green");
+			purpleDoor.setPosition(374, 258);
+			greenDoor.setPosition(240, 450);//208 452
+			doors.add(purpleDoor);
+			doors.add(greenDoor);
+		}
+		
+		if(gsm.getCurrentLevel() == 42){
+			door = new Door(tileMap, "normal");
+			door.setPosition(580, 258);
+			doors.add(door);		
+		}
+		if(gsm.getCurrentLevel() == 43){
+			door = new Door(tileMap, "normal");
+			door.setPosition(580, 354);
+			doors.add(door);
+		}
+		
 	}
 	public void wandB(){
 	}
-	
-	//{{{ getters and setters
+//}}}	
+//{{{ getters and setters
 	public void switchActiveUp(){
 		if(switched == 0){
 			if(switchable == players.size() - 1){
@@ -156,47 +187,42 @@ public class World4State extends GameState {
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
-	
+//{{{update stuff	
 	public void whatUpdate(){
-
+		if(gsm.getCurrentLevel() == 41){
+			checkColoredDoors();
+			purpleDoor.checkAta(ata, moved);
+			greenDoor.checkJi(ji, moved);
+		}
+		if(gsm.getCurrentLevel() == 42){
+		       checkRegularDoor();
+	       		door.checkAta(ata, moved);		
+		}
 	}
 	@Override
 	public void update() {
 		
 		handleInput();
-		if(gsm.getCurrentLevel() < 31){
+
 		ji.update();	
 		ji.checkCatch(ata);
-		}else{
-			zav.update();	
-			zav.checkCatch(ata);
-		}
 		ata.update();
 		
 		
 		whatUpdate();
 		bg.update();
 		
-		if(gsm.getCurrentLevel() < 31){
-			if(ji.fellDead() || ata.fellDead()){
-			//restart();
-			}
-		}else{
-			if(ata.fellDead() || zav.fellDead()){
-				restart();
-			}
-		}
 		
+			if(ji.fellDead() || ata.fellDead()){
+			restart();
+			}
 		
 		for(int i = 0; i < buttons.size(); i++){
 			Button b = buttons.get(i);
-			if(gsm.getCurrentLevel() < 31){
 			b.checkPress(ji);
 			b.updateWall(ji);
-			}else{
-			b.checkPress(zav);
-			b.updateWall(zav);
-			}
+			
+			
 			b.checkPress(ata);
 			b.updateWall(ata);
 			b.update();
@@ -205,39 +231,30 @@ public class World4State extends GameState {
 		for(int i = 0; i < walls.size(); i++){
 			Wall w = walls.get(i);
 			if(!w.removed()){
-				if(gsm.getCurrentLevel() < 31){
-			w.checkCollision(ji);
-				}else{
-			w.checkCollision(zav);		
+				
+			w.checkCollision(ji);		
 			w.checkCollision(ata);
 				}
-			}
+			
 			if(w.shouldRemove()){
 				walls.remove(w);
 				i--;
 			}
 		}
 		
-		wall1.checkCollision(zav);;
 		
 		for(int i = 0; i < pictures.size(); i++){
 			Images j = pictures.get(i);
 			j.update();
 		}
 		
-		if(gsm.getCurrentLevel() == 30){
-			tileMap.setPosition(
-					GamePanel.WIDTH / 2 - getActivePlayer().getx(),
-					0);
-		}else{
+		
 		tileMap.setPosition(
 				GamePanel.WIDTH / 2 - getActivePlayer().getx(),
 				GamePanel.HEIGHT / 2 - getActivePlayer().gety());
 		}
 		//wall.checkCollision(ji);
-
-	}
-
+//}}}
 	@Override
 	public void draw(Graphics2D g) {
 		bg.draw(g);

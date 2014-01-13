@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import Entity.Characters.Ata;
 import Entity.Characters.Ji;
 import Entity.Characters.Rae;
 import Entity.Characters.Zav;
@@ -39,6 +40,8 @@ public class Door extends MapObject{
 			s = "/Sprites/Doors/PinkDoor.png";
 		} else if(type.equalsIgnoreCase("blue")){
 			s = "/Sprites/Doors/BlueDoor.png";
+		}else if(type.equalsIgnoreCase("purple")){
+			s = "/Sprites/Doors/PurpleDoor.png";
 		}else{
 			System.out.print("thats not what you call a door");
 		}
@@ -96,6 +99,15 @@ public class Door extends MapObject{
 	}
 	public void checkZav(Zav zav, int p){
 		if(intersects(zav)){
+			setSatisfied(true);
+			
+			p = 1;
+		}else{
+			setSatisfied(false);
+		}
+	}
+	public void checkAta(Ata ata, int p){
+		if(intersects(ata)){
 			setSatisfied(true);
 			
 			p = 1;
