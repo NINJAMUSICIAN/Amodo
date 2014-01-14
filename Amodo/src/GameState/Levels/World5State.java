@@ -67,6 +67,10 @@ public class World5State extends GameState {
 			ji.setPosition(100, 511);
 			ata.setPosition(100, 511);
 		}	
+		if(gsm.getCurrentLevel() == 44){
+			ji.setPosition(816, 740);
+			ata.setPosition(600, 735);
+		}
 	}	
 	@Override
 	public void init() {
@@ -88,7 +92,8 @@ public class World5State extends GameState {
 		jiStart = new Point(ji.getx(), ji.gety());
 		setAtaStart(new Point(ata.getx(), ata.gety()));
 		
-		bg = new Background("/Backgrounds/DeepBackground.png", 0.1);
+		bg = new Background("/Backgrounds/DeepBackground.png", -1);
+		
 		tileMap.setPosition(0, 0);
 		tileMap.setTween(1);
 		
@@ -107,7 +112,7 @@ public class World5State extends GameState {
 			greenDoor.setPosition(240, 450);//208 452
 			doors.add(purpleDoor);
 			doors.add(greenDoor);
-		}
+		} 
 		
 		if(gsm.getCurrentLevel() == 42){
 			door = new Door(tileMap, "normal");
@@ -119,9 +124,29 @@ public class World5State extends GameState {
 			door.setPosition(580, 354);
 			doors.add(door);
 		}
+		if(gsm.getCurrentLevel() == 44){
+			door = new Door(tileMap, "normal");
+			door.setPosition(986, 353);
+			doors.add(door);
+		}
 		
 	}
 	public void wandB(){
+		if(gsm.getCurrentLevel() == 44){
+			wall1 = new Wall(3, "vertical", "nothing", tileMap);
+			wall1.setPosition(910, 720);
+			walls.add(wall1);
+			button = new Button(tileMap, "right", "break", wall1);
+			button.setPosition(48, 480);
+			buttons.add(button);
+			
+			wall2 = new Wall(3, "vertical", "nothing", tileMap);
+			wall2.setPosition(762, 496);
+			walls.add(wall2);
+			button = new Button(tileMap, "down", "break", wall2);
+			button.setPosition(976, 687);
+			buttons.add(button);
+		}
 	}
 //}}}	
 //{{{ getters and setters
@@ -198,6 +223,14 @@ public class World5State extends GameState {
 		       checkRegularDoor();
 	       		door.checkAta(ata, moved);		
 		}
+		if(gsm.getCurrentLevel() == 43){
+			checkRegularDoor();
+			door.checkAta(ata, moved);
+		}
+		if(gsm.getCurrentLevel() == 44){
+			checkRegularDoor();
+			door.checkAta(ata, moved);
+		}
 	}
 	@Override
 	public void update() {
@@ -210,8 +243,8 @@ public class World5State extends GameState {
 		
 		
 		whatUpdate();
-		bg.update();
-		
+	bg.update();
+		//bg.setPosition(0, 0);
 		
 			if(ji.fellDead() || ata.fellDead()){
 			restart();
