@@ -68,8 +68,8 @@ public class World5State extends GameState {
 			ata.setPosition(100, 511);
 		}	
 		if(gsm.getCurrentLevel() == 44){
-			ji.setPosition(816, 740);
-			ata.setPosition(600, 735);
+			ji.setPosition(816, 730);
+			ata.setPosition(600, 730);
 		}
 	}	
 	@Override

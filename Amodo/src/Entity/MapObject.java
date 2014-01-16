@@ -1,10 +1,11 @@
 package Entity;
 
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import Main.GamePanel;
 import TileMap.Tile;
 import TileMap.TileMap;
+
 
 public abstract class MapObject {
 	
@@ -63,51 +64,64 @@ public abstract class MapObject {
 	protected double jumpStart;
 	protected double stopJumpSpeed;
 	
-	public MapObject(TileMap tm){
+	// constructor
+	public MapObject(TileMap tm) {
 		tileMap = tm;
 		tileSize = tm.getTileSize();
+		animation = new Animation();
+		facingRight = true;
 	}
 	
-	public boolean intersects(MapObject o){
+	public boolean intersects(MapObject o) {
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
 	}
 	
-	public void setCurrentAction(int c){
-		dx = 0;
-		
-		currentAction = c;
+	public boolean intersects(Rectangle r) {
+		return getRectangle().intersects(r);
 	}
 	
-	public Rectangle getRectangle(){
+	public boolean contains(MapObject o) {
+		Rectangle r1 = getRectangle();
+		Rectangle r2 = o.getRectangle();
+		return r1.contains(r2);
+	}
+	
+	public boolean contains(Rectangle r) {
+		return getRectangle().contains(r);
+	}
+	
+	public Rectangle getRectangle() {
 		return new Rectangle(
-				(int)x - cwidth,
-				(int)y - cheight, 
+				(int)x - cwidth / 2,
+				(int)y - cheight / 2,
 				cwidth,
-				cheight);
+				cheight
+		);
 	}
 	
-	public void calculateCorners(double x, double y){
-
+	public void calculateCorners(double x, double y) {
 		int leftTile = (int)(x - cwidth / 2) / tileSize;
 		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
 		int topTile = (int)(y - cheight / 2) / tileSize;
 		int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
-		
+		if(topTile < 0 || bottomTile >= tileMap.getNumRows() ||
+			leftTile < 0 || rightTile >= tileMap.getNumCols()) {
+			topLeft = topRight = bottomLeft = bottomRight = false;
+			return;
+		}
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
 		int bl = tileMap.getType(bottomTile, leftTile);
 		int br = tileMap.getType(bottomTile, rightTile);
-		
 		topLeft = tl == Tile.BLOCKED;
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
 		bottomRight = br == Tile.BLOCKED;
-		
 	}
 	
-public void checkTileMapCollision() {
+	public void checkTileMapCollision() {
 		
 		currCol = (int)x / tileSize;
 		currRow = (int)y / tileSize;
@@ -167,86 +181,70 @@ public void checkTileMapCollision() {
 		}
 		
 	}
-public int getx() { return (int)x; }
-public int gety() { return (int)y; }
-public int getWidth() { return width; }
-public int getHeight() { return height; }
-public int getCWidth() { return cwidth; }
-public int getCHeight() { return cheight; }
-
-public void setPosition(double x, double y) {
-	this.x = x;
-	this.y = y;
-}
-public void setVector(double dx, double dy) {
-	this.dx = dx;
-	this.dy = dy;
-}
-public double getDX(){return dx;}
-public double getDY(){return dy;}
-public void setDx(double x){
-	dx = x;
-}
-public void setDy(double y){
-	dy = y;
-}
-
-
-
-
-public double getYScreen(){
-	return y + ymap;
-}
-public double getXScreen(){
-	return x + xmap;
-}
-
-public boolean isOnScreen(){
-	boolean wow;
-	if(getYScreen() > 0 && getYScreen() <  480){
-		if(getXScreen() > 0 && getXScreen() < 640){
-			wow = true;
-			}else{
-				wow = false;
-			}
-		}else{
-			wow = false;
-		}
-	return wow;
-}
-
-public void setMapPosition() {
-	xmap = tileMap.getx();
-	ymap = tileMap.gety();
-}
-
-public void setLeft(boolean b) { left = b; }
-public void setRight(boolean b) { right = b; }
-public void setUp(boolean b) { up = b; }
-public void setDown(boolean b) { down = b; }
-public void setJumping(boolean b) { jumping = b; }
-public void setFalling(boolean b){falling = b;}
-
-public void stopMoving(){left = false; right = false; up = false; down = false; jumping = false;}
-
-public void draw(Graphics2D g){
-	if(facingRight) {
-		g.drawImage(
-			animation.getImage(),
-			(int)(x + xmap - width / 2),
-			(int)(y + ymap - height / 2),
-			null
-		);
+	
+	public int getx() { return (int)x; }
+	public int gety() { return (int)y; }
+	public double getDX() {return dx;}
+	public double getDY(){return dy;}
+	public void setDy(double y){dy = y;}
+	public int getWidth() { return width; }
+	public int getHeight() { return height; }
+	public int getCWidth() { return cwidth; }
+	public int getCHeight() { return cheight; }
+	public boolean isFacingRight() { return facingRight; }
+	
+	public void setPosition(double x, double y) {
+		this.x = x;
+		this.y = y;
 	}
-	else {
-		g.drawImage(
-			animation.getImage(),
-			(int)(x + xmap - width / 2 + width),
-			(int)(y + ymap - height / 2),
-			-width,
-			height,
-			null
-		);
-		}
+	public void setVector(double dx, double dy) {
+		this.dx = dx;
+		this.dy = dy;
 	}
+	
+	public void setMapPosition() {
+		xmap = tileMap.getx();
+		ymap = tileMap.gety();
+	}
+	
+	public void setLeft(boolean b) { left = b; }
+	public void setRight(boolean b) { right = b; }
+	public void setUp(boolean b) { up = b; }
+	public void setDown(boolean b) { down = b; }
+	public void setJumping(boolean b) { jumping = b; }
+	
+	public boolean notOnScreen() {
+		return x + xmap + width < 0 ||
+			x + xmap - width > GamePanel.WIDTH ||
+			y + ymap + height < 0 ||
+			y + ymap - height > GamePanel.HEIGHT;
+	}
+	
+	public void draw(java.awt.Graphics2D g) {
+		setMapPosition();
+		if(facingRight) {
+			g.drawImage(
+				animation.getImage(),
+				(int)(x + xmap - width / 2),
+				(int)(y + ymap - height / 2),
+				null
+			);
+		}
+		else {
+			g.drawImage(
+				animation.getImage(),
+				(int)(x + xmap - width / 2 + width),
+				(int)(y + ymap - height / 2),
+				-width,
+				height,
+				null
+			);
+		}
+		// draw collision box
+		//Rectangle r = getRectangle();
+		//r.x += xmap;
+		//r.y += ymap;
+		//g.draw(r);
+	}
+	
 }

@@ -199,5 +199,13 @@ public class TileMap {
 		}
 		
 	}
-	
+
+	public int getNumRows() {
+		// TODO Auto-generated method stub
+		return numRows;
+	}
+	public int getNumCols() {
+		// TODO Auto-generated method stub
+		return numCols;
+	}
 }
