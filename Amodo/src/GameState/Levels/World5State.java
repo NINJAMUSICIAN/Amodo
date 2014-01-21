@@ -71,6 +71,14 @@ public class World5State extends GameState {
 			ji.setPosition(816, 730);
 			ata.setPosition(600, 730);
 		}
+		if(gsm.getCurrentLevel() == 45){
+			ji.setPosition(100, 240);
+			ata.setPosition(100, 240);
+		}
+		if(gsm.getCurrentLevel() == 46){
+			ji.setPosition(100, 348);
+			ata.setPosition(100, 224);
+		}
 	}	
 	@Override
 	public void init() {
@@ -127,6 +135,16 @@ public class World5State extends GameState {
 		if(gsm.getCurrentLevel() == 44){
 			door = new Door(tileMap, "normal");
 			door.setPosition(986, 353);
+			doors.add(door);
+		}
+		if(gsm.getCurrentLevel() == 45){
+			door = new Door(tileMap, "normal");
+			door.setPosition(1175, 257);
+			doors.add(door);
+		}
+		if(gsm.getCurrentLevel() == 46){
+			door = new Door(tileMap, "normal");
+			door.setPosition(1070, 322);
 			doors.add(door);
 		}
 		
@@ -231,6 +249,14 @@ public class World5State extends GameState {
 			checkRegularDoor();
 			door.checkAta(ata, moved);
 		}
+		if(gsm.getCurrentLevel() == 45){
+			checkRegularDoor();
+			door.checkAta(ata, moved);
+		}
+		if(gsm.getCurrentLevel() == 46){
+			checkRegularDoor();
+			door.checkJi(ji, moved);
+		}
 	}
 	@Override
 	public void update() {
@@ -281,7 +307,15 @@ public class World5State extends GameState {
 			j.update();
 		}
 		
-		
+		if(gsm.getCurrentLevel() == 46){
+			if(tileMap.getx() > -400){
+				tileMap.setPosition(
+						GamePanel.WIDTH / 2 - getActivePlayer().getx(),
+						GamePanel.HEIGHT / 2 - getActivePlayer().gety());
+			}else{
+				return;
+			}
+		}
 		tileMap.setPosition(
 				GamePanel.WIDTH / 2 - getActivePlayer().getx(),
 				GamePanel.HEIGHT / 2 - getActivePlayer().gety());
