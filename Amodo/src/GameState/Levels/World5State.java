@@ -123,9 +123,9 @@ public class World5State extends GameState {
 		} 
 		
 		if(gsm.getCurrentLevel() == 42){
-			door = new Door(tileMap, "normal");
-			door.setPosition(580, 258);
-			doors.add(door);		
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(580, 258);
+			doors.add(door1);		
 		}
 		if(gsm.getCurrentLevel() == 43){
 			door = new Door(tileMap, "normal");
@@ -133,14 +133,14 @@ public class World5State extends GameState {
 			doors.add(door);
 		}
 		if(gsm.getCurrentLevel() == 44){
-			door = new Door(tileMap, "normal");
-			door.setPosition(986, 353);
-			doors.add(door);
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(986, 353);
+			doors.add(door1);
 		}
 		if(gsm.getCurrentLevel() == 45){
-			door = new Door(tileMap, "normal");
-			door.setPosition(1175, 257);
-			doors.add(door);
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(1175, 257);
+			doors.add(door1);
 		}
 		if(gsm.getCurrentLevel() == 46){
 			door = new Door(tileMap, "normal");
@@ -230,7 +230,35 @@ public class World5State extends GameState {
 			gsm.setState(GameStateManager.LOADINGSTATE);
 		}
 	}
-//{{{update stuff	
+	public void check42Door(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 43;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check43Door(){
+		if(door.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 44;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check44Door(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 45;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	public void check45Door(){
+		if(door1.isSatisfied()){
+			players.clear();
+			gsm.currentLevel = 46;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+		}
+	}
+	
 	public void whatUpdate(){
 		if(gsm.getCurrentLevel() == 41){
 			checkColoredDoors();
@@ -238,20 +266,20 @@ public class World5State extends GameState {
 			greenDoor.checkJi(ji, moved);
 		}
 		if(gsm.getCurrentLevel() == 42){
-		       checkRegularDoor();
-	       		door.checkAta(ata, moved);		
+	       		door1.checkAta(ata, moved);		
+	       	 check42Door();
 		}
 		if(gsm.getCurrentLevel() == 43){
-			checkRegularDoor();
 			door.checkAta(ata, moved);
+			check43Door();
 		}
 		if(gsm.getCurrentLevel() == 44){
-			checkRegularDoor();
-			door.checkAta(ata, moved);
+			check44Door();
+			door1.checkAta(ata, moved);
 		}
 		if(gsm.getCurrentLevel() == 45){
-			checkRegularDoor();
-			door.checkAta(ata, moved);
+			check45Door();
+			door1.checkAta(ata, moved);
 		}
 		if(gsm.getCurrentLevel() == 46){
 			checkRegularDoor();
