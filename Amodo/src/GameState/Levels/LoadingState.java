@@ -27,9 +27,13 @@ public class LoadingState extends GameState{
 			gsm.setState(GameStateManager.LEVEL3STATE);
 		} else if(gsm.getCurrentLevel() > 26 && gsm.getCurrentLevel() < 41){
 			gsm.setState(GameStateManager.LEVEL4STATE);
-		} else if(gsm.getCurrentLevel() > 40){
+		} else if(gsm.getCurrentLevel() > 40 && gsm.getCurrentLevel() < 47){
 			gsm.setState(GameStateManager.LEVEL5STATE);
-		} 
+		} else if(gsm.getCurrentLevel() > 46 && gsm.getCurrentLevel() < 48){
+			gsm.setState(GameStateManager.LEVEL6STATE);
+		} else if(gsm.getCurrentLevel() > 47){
+			gsm.setState(GameStateManager.LEVEL7STATE);
+		}
 	}
 
 	

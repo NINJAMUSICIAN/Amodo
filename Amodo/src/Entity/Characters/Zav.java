@@ -18,7 +18,8 @@ public class Zav extends MapObject{
 	private int maxHealth;
 	private TileMap tiley;
 	
-	private double bounceSpeed = -6.4; //how high other person bounces
+	private double bounceSpeed = -6.4;//how high other person bounces
+	private double ataBounce = -8.8;
 	
 	private boolean dead;
 	
@@ -147,6 +148,27 @@ public class Zav extends MapObject{
 						
 					sfx.get("bounce").play();
 					rae.setDy(bounceSpeed);
+				}
+						
+				caught = true;
+			}
+			
+		}
+		//System.out.println(caught);
+		return caught;
+		
+	}
+public boolean checkCatch(Ata ata){
+		
+		boolean caught = false;
+		
+		if(ata.getx() - 10 < getx() && (ata.getx() + ata.getCWidth() + 10) > (getx() + getCWidth())){ 
+			if(ata.gety() + ata.getCHeight() <= gety() &&
+					ata.gety() + ata.getCHeight() >= gety() - 5){
+				if(ata.getCurrentAction() == FALLING){
+						
+					sfx.get("bounce").play();
+					ata.setDy(ataBounce);
 				}
 						
 				caught = true;
