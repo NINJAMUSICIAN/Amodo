@@ -31,8 +31,10 @@ public class LoadingState extends GameState{
 			gsm.setState(GameStateManager.LEVEL5STATE);
 		} else if(gsm.getCurrentLevel() > 46 && gsm.getCurrentLevel() < 48){
 			gsm.setState(GameStateManager.LEVEL6STATE);
-		} else if(gsm.getCurrentLevel() > 47){
+		} else if(gsm.getCurrentLevel() > 47 && gsm.getCurrentLevel() < 52){
 			gsm.setState(GameStateManager.LEVEL7STATE);
+		}else{
+			gsm.setState(GameStateManager.LEVEL8STATE);
 		}
 	}
 
