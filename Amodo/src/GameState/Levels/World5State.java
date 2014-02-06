@@ -138,14 +138,14 @@ public class World5State extends GameState {
 			doors.add(door1);
 		}
 		if(gsm.getCurrentLevel() == 45){
-			door1 = new Door(tileMap, "normal");
-			door1.setPosition(1175, 257);
-			doors.add(door1);
+			door = new Door(tileMap, "normal");
+			door.setPosition(1175, 257);
+			doors.add(door);
 		}
 		if(gsm.getCurrentLevel() == 46){
-			door = new Door(tileMap, "normal");
-			door.setPosition(1070, 322);
-			doors.add(door);
+			door1 = new Door(tileMap, "normal");
+			door1.setPosition(1070, 322);
+			doors.add(door1);
 		}
 		
 	}
@@ -252,7 +252,7 @@ public class World5State extends GameState {
 		}
 	}
 	public void check45Door(){
-		if(door1.isSatisfied()){
+		if(door.isSatisfied()){
 			players.clear();
 			gsm.currentLevel = 46;
 			gsm.setState(GameStateManager.LOADINGSTATE);
@@ -279,11 +279,11 @@ public class World5State extends GameState {
 		}
 		if(gsm.getCurrentLevel() == 45){
 			check45Door();
-			door1.checkAta(ata, moved);
+			door.checkAta(ata, moved);
 		}
 		if(gsm.getCurrentLevel() == 46){
 			checkRegularDoor();
-			door.checkJi(ji, moved);
+			door1.checkJi(ji, moved);
 		}
 	}
 	@Override

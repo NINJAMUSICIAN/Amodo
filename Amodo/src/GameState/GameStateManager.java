@@ -8,7 +8,7 @@ public class GameStateManager {
 	private GameState[] gameStates;
 	private int currentState;
 	
-	public int currentLevel = 54;
+	public int currentLevel = 2;
 	
 	public static final int NUMGAMESTATES = 20;
 	public static final int LEVEL1STATE = 0;
