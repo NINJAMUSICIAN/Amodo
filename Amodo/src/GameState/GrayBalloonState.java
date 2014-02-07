@@ -154,12 +154,13 @@ public class GrayBalloonState extends GameState {
 		
 //		pinkDoor.Draw(g);
 //		greenDoor.Draw(g);
-		if(!fadein.isDone()){
-	fadein.draw(g);
-	}
+	
 		if(!fadeout.isDone()){
 			image1.draw(g);
 		}
+		if(!fadein.isDone()){
+			fadein.draw(g);
+			}
 	fadeout.draw(g);
 	
 	}
