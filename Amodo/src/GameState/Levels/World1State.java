@@ -595,7 +595,7 @@ public class World1State extends GameState {
 	if(!fadein.isDone()){
 	fadein.draw(g);
 	}
-	
+	fadeout.draw(g);
 	
 	}
 

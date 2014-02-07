@@ -102,7 +102,7 @@ public FadeOut(TileMap tm, String s, int w, int h){
 	}
 
 	public void update(){
-		
+		System.out.println(isDone());
 		checkTileMapCollision();
 		setPosition(xtemp, ytemp);
 		if(animation.getFrame() == 9){
