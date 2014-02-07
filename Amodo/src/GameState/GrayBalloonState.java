@@ -118,7 +118,6 @@ public class GrayBalloonState extends GameState {
 			if(fadein.isDone() && done >= 1){
 				long elapsed =
 						(System.nanoTime() - waitTime) / 1000000;
-				System.out.println(elapsed);
 					if(elapsed > 6992) {
 						fadeout.go();
 											}
