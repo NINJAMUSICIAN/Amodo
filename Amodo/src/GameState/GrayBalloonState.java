@@ -128,7 +128,7 @@ public class GrayBalloonState extends GameState {
 			fadeout.update();
 			}else if(fadeout.isDone()){
 				stopMusic();
-				gsm.setState(GameStateManager.LOADINGSTATE);
+				gsm.setState(GameStateManager.MENUSTATE);
 			}
 	
 		

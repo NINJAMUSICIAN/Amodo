@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import Entity.Button;
 import Entity.Door;
+import Entity.FadeIn;
+import Entity.FadeOut;
 import Entity.Images;
 import Entity.MapObject;
 import Entity.Wall;
@@ -33,6 +35,9 @@ public class World2State extends GameState {
 	private Button button;
 	private Wall wall1, wall2, wall3, wall4;
 	private Images image;
+	private FadeIn fadein;
+	private FadeOut fadeout;
+	
 	
 	private ArrayList<Door> doors;
 	private ArrayList<MapObject> players;
@@ -107,6 +112,11 @@ public class World2State extends GameState {
 		
 		tileMap.loadTiles("/Tilesets/grasstileset.png");
 		tileMap.setPosition(-0, 0);
+		
+		fadein = new FadeIn(tileMap, 20);
+		fadein.setPosition(320, 240);
+		fadeout = new FadeOut(tileMap, 20);
+		fadeout.setPosition(320, 240);
 		
 		players = new ArrayList<MapObject>();
 	
@@ -365,23 +375,32 @@ public class World2State extends GameState {
 	//UPDATE STUFF
 	public void checkRegularDoor(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void checkRegularDoor11(){
 		if(door11.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 12;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void checkColoredDoors(){
 		if(pinkDoor.isSatisfied() && greenDoor.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void whatUpdate(){
@@ -433,7 +452,12 @@ public class World2State extends GameState {
 	
 	}
 	public void update() {
-		
+		if(!fadein.isDone()){
+			fadein.update();
+			}
+			if(!fadeout.isDone()){
+				fadeout.update();
+				}
 		handleInput();
 		
 		ji.update();	
@@ -509,7 +533,10 @@ public class World2State extends GameState {
 		walls.get(i).draw(g);
 		}
 	
-	
+	if(!fadein.isDone()){
+		fadein.draw(g);
+		}
+		fadeout.draw(g);
 	
 	
 	}

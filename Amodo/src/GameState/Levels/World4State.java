@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import Entity.Button;
 import Entity.Door;
+import Entity.FadeIn;
+import Entity.FadeOut;
 import Entity.Images;
 import Entity.MapObject;
 import Entity.Wall;
@@ -36,6 +38,8 @@ public class World4State extends GameState {
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
 	private Images image;
+	private FadeIn fadein;
+	private FadeOut fadeout;
 	
 	private ArrayList<Door> doors;
 	private ArrayList<MapObject> players;
@@ -153,6 +157,11 @@ public class World4State extends GameState {
 		
 		tileMap.loadTiles("/Tilesets/ZavSet.png");
 		tileMap.setPosition(-0, 0);
+		
+		fadein = new FadeIn(tileMap, 20);
+		fadein.setPosition(320, 240);
+		fadeout = new FadeOut(tileMap, 20);
+		fadeout.setPosition(320, 240);
 		
 		players = new ArrayList<MapObject>();
 	
@@ -480,82 +489,113 @@ public class World4State extends GameState {
 	
 	public void checkRegularDoor(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void checkColoredDoors(){
 		if(pinkDoor.isSatisfied() && greenDoor.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
-	
 	public void checkColoredDoors2(){
 		if(pinkDoor.isSatisfied() && blueDoor.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
-	
 	public void checkRegularDoor28(){
 		if(door3.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			gsm.currentLevel = 29;
 			doors.remove(door3);
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check30Doors(){
 		if(door1.isSatisfied() || door2.isSatisfied() || door3.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check31Doors(){
 		if(pinkDoor1.isSatisfied() && blueDoor1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			doors.clear();
 			gsm.currentLevel = 32;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check33Doors(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 34;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check34Doors(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 35;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check35Doors(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 36;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check36Doors(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 37;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check40Door(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 41;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	
@@ -640,7 +680,12 @@ public class World4State extends GameState {
 	}
 	@Override
 	public void update() {
-		
+		if(!fadein.isDone()){
+			fadein.update();
+			}
+			if(!fadeout.isDone()){
+				fadeout.update();
+				}
 		handleInput();
 		if(gsm.getCurrentLevel() < 31){
 		ji.update();	
@@ -748,7 +793,10 @@ public class World4State extends GameState {
 		walls.get(i).draw(g);
 		}
 	
-	
+	if(!fadein.isDone()){
+		fadein.draw(g);
+		}
+		fadeout.draw(g);
 	
 	}
 

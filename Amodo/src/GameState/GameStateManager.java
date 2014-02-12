@@ -20,6 +20,7 @@ public class GameStateManager {
 	public static final int LEVEL7STATE = 6;
 	public static final int LEVEL8STATE = 7;
 	public static final int LOGOSTATE = 8;
+	public static final int MENUSTATE = 9;
 	public static final int LOADINGSTATE = 19;
 	
 	
@@ -28,7 +29,7 @@ public class GameStateManager {
 		
 		gameStates = new GameState[NUMGAMESTATES];
 		
-		currentState = LOGOSTATE;
+		currentState = LOADINGSTATE;
 		loadState(currentState);
 		
 	}
@@ -55,6 +56,8 @@ public class GameStateManager {
 	        gameStates[state] = new World8State(this);	
 		}if(state == LOGOSTATE){
 	        gameStates[state] = new GrayBalloonState(this);	
+		}if(state == MENUSTATE){
+	        gameStates[state] = new MenuState(this);	
 		}
 	}
 	

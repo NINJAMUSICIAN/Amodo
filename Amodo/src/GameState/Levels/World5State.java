@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import Entity.Button;
 import Entity.Door;
+import Entity.FadeIn;
+import Entity.FadeOut;
 import Entity.Images;
 import Entity.MapObject;
 import Entity.Wall;
@@ -35,6 +37,8 @@ public class World5State extends GameState {
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
 	private Images image;
+	private FadeIn fadein;
+	private FadeOut fadeout;
 	
 	private ArrayList<Door> doors;
 	private ArrayList<MapObject> players;
@@ -92,6 +96,12 @@ public class World5State extends GameState {
 		
 		tileMap.loadTiles("/Tilesets/TheDeepTileset.png");
 		tileMap.setPosition(-0, 0);
+		
+		fadein = new FadeIn(tileMap, 20);
+		fadein.setPosition(320, 240);
+		fadeout = new FadeOut(tileMap, 20);
+		fadeout.setPosition(320, 240);
+		
 		
 		players = new ArrayList<MapObject>();
 	
@@ -218,44 +228,62 @@ public class World5State extends GameState {
 	
 	public void checkRegularDoor(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void checkColoredDoors(){
 		if(purpleDoor.isSatisfied() && greenDoor.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 		 	gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check42Door(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 43;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check43Door(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 44;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check44Door(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 45;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check45Door(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 46;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	
@@ -288,7 +316,12 @@ public class World5State extends GameState {
 	}
 	@Override
 	public void update() {
-		
+		if(!fadein.isDone()){
+			fadein.update();
+			}
+			if(!fadeout.isDone()){
+				fadeout.update();
+				}
 		handleInput();
 
 		ji.update();	
@@ -382,7 +415,10 @@ public class World5State extends GameState {
 		walls.get(i).draw(g);
 		}
 	
-	
+	if(!fadein.isDone()){
+		fadein.draw(g);
+		}
+		fadeout.draw(g);
 	
 	}
 

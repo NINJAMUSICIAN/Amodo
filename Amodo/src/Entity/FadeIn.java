@@ -126,8 +126,15 @@ public FadeIn(TileMap tm, String s, int w, int h){
 	
 	public void draw(Graphics2D g){
 		if(!isDone()){
-	setMapPosition();
-	super.draw(g);	
+	//setMapPosition();
+			g.drawImage(
+					animation.getImage(),
+					(int)(640),
+					(int)(0),
+					-width,
+					height,
+					null
+				);
 		}
 	}
 }

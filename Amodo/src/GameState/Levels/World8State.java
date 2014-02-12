@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import Entity.Button;
 import Entity.Door;
+import Entity.FadeIn;
+import Entity.FadeOut;
 import Entity.Images;
 import Entity.MapObject;
 import Entity.Wall;
@@ -34,6 +36,8 @@ public class World8State extends GameState {
 	@SuppressWarnings("unused")
 	private Wall wall1, wall2, wall3, wall4;
 	private Images image;
+	private FadeIn fadein;
+	private FadeOut fadeout;
 	
 	private ArrayList<Door> doors;
 	private ArrayList<MapObject> players;
@@ -84,6 +88,11 @@ public class World8State extends GameState {
 		
 		tileMap.loadTiles("/Tilesets/grasstileset.png");
 		tileMap.setPosition(-0, 0);
+		
+		fadein = new FadeIn(tileMap, 20);
+		fadein.setPosition(320, 240);
+		fadeout = new FadeOut(tileMap, 20);
+		fadeout.setPosition(320, 240);
 		
 		players = new ArrayList<MapObject>();
 	
@@ -182,30 +191,42 @@ public class World8State extends GameState {
 	
 	public void checkRegularDoor(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel++;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check52Door(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 53;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check53Door(){
 		if(door.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 54;
 			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
 		}
 	}
 	public void check54Door(){
 		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
 			players.clear();
 			gsm.currentLevel = 49;
 			//gsm.setState(GameStateManager.CREDITSTATE);
+			}
 		}
 	}
 	
@@ -225,7 +246,12 @@ public class World8State extends GameState {
 	}
 	@Override
 	public void update() {
-		
+		if(!fadein.isDone()){
+			fadein.update();
+			}
+			if(!fadeout.isDone()){
+				fadeout.update();
+				}
 		handleInput();
 
 		if(gsm.getCurrentLevel() == 52 || gsm.getCurrentLevel() == 54){
@@ -309,7 +335,10 @@ public class World8State extends GameState {
 		walls.get(i).draw(g);
 		}
 	
-	
+	if(!fadein.isDone()){
+		fadein.draw(g);
+		}
+		fadeout.draw(g);
 	
 	}
 
