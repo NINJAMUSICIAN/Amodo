@@ -62,26 +62,45 @@ public class World5State extends GameState {
 		if(gsm.getCurrentLevel() == 41){
 			ji.setPosition(100, 100);
 			ata.setPosition(535, 100);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level41.png", 640, 672);
+			image.setPosition(320, 336);
+			pictures.add(image);
 		}		
 		if(gsm.getCurrentLevel() == 42){
 			ji.setPosition(100, 415);
 			ata.setPosition(160, 415);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level42.png", 640, 576);
+			image.setPosition(320, 288);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 43){
 			ji.setPosition(100, 511);
 			ata.setPosition(100, 511);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level43.png", 640, 896);
+			image.setPosition(320, 448);
+			pictures.add(image);
 		}	
 		if(gsm.getCurrentLevel() == 44){
 			ji.setPosition(816, 730);
 			ata.setPosition(600, 730);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level44.png", 1056, 896);
+			image.setPosition(528, 448);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 45){
 			ji.setPosition(100, 240);
 			ata.setPosition(100, 240);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level45.png", 1248, 672);
+			image.setPosition(624, 336);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 46){
 			ji.setPosition(100, 348);
 			ata.setPosition(100, 224);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level46.png", 1152, 576
+					);
+			image.setPosition(576, 288);
+			pictures.add(image);
 		}
 	}	
 	@Override

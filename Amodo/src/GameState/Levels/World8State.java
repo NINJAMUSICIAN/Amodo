@@ -67,13 +67,22 @@ public class World8State extends GameState {
 		
 		if(gsm.getCurrentLevel() == 52){
 			ji.setPosition(80, 415);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level52.png", 640, 480);
+			image.setPosition(320, 240);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 53){
 			rae.setPosition(80, 900);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level53.png", 640, 960);
+			image.setPosition(320, 480);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 54){
 			ji.setPosition(200, 415);
 			rae.setPosition(300, 196);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level28.png", 1376, 576);
+			image.setPosition(688, 288);
+			pictures.add(image);
 		}
 	}	
 	@Override

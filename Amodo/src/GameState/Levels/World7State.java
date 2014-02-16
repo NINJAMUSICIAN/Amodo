@@ -63,18 +63,30 @@ public class World7State extends GameState {
 		if(gsm.getCurrentLevel() == 48){
 			zav.setPosition(80, 70);
 			ata.setPosition(200, 496);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level48.png");
+			image.setPosition(320, 288);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 49){
 			zav.setPosition(200, 600);
 			ata.setPosition(200, 496);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level49.png", 672, 800);
+			image.setPosition(336, 400);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 50){
 			zav.setPosition(200, 600);
 			ata.setPosition(200, 496);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level50.png", 640, 736);
+			image.setPosition(320, 368);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 51){
 			zav.setPosition(314, 773);
 			ata.setPosition(200, 496);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level51.png", 640, 896);
+			image.setPosition(320, 448);
+			pictures.add(image);
 		}
 	}	
 	@Override

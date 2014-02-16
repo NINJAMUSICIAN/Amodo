@@ -64,23 +64,35 @@ public class World3State extends GameState {
 			zav.setPosition(100, 415);
 			ji.setPosition(652, 415);
 			setActivePlayer(1);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level20.png", 1280, 576);
+			image.setPosition(640, 288);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 19){
 			zav.setPosition(580, 830);
 			ji.setPosition(400, 415);
 			setActivePlayer(1);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level19.png", 640, 1056);
+			image.setPosition(320, 528);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 21){
 			zav.setPosition(1900, 415);//1900 415
 			ji.setPosition(1980, 415);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level21.png", 2304, 576);
+			image.setPosition(1152, 288);
+			pictures.add(image);
 			}
 		
 		if(gsm.getCurrentLevel() == 22){
 			zav.setPosition(300, 415);// 300 415
 			ji.setPosition(330, 415);
 			setActivePlayer(1);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level22.png", 800, 672);
+			image.setPosition(400, 336);
+			pictures.add(image);
 		}
 		if(gsm.getCurrentLevel() == 23){
 			zav.setPosition(180, 256);
@@ -91,6 +103,9 @@ public class World3State extends GameState {
 			zav.setPosition(80, 415);// 80 415
 			ji.setPosition(80, 200);//80 200
 			setActivePlayer(0);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level24.png", 2560, 640);
+			image.setPosition(1280, 320);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 25){

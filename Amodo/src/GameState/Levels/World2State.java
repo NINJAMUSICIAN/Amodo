@@ -73,20 +73,33 @@ public class World2State extends GameState {
 		if(gsm.getCurrentLevel() == 12){
 			ji.setPosition(300, 80);
 			rae.setPosition(180, 415);
+			
 		}
 		
 		if(gsm.getCurrentLevel() == 13){
 			ji.setPosition(100, 80);// 100 80
 			rae.setPosition(100, 415);
 		}
-		if(gsm.getCurrentLevel() == 14 || gsm.getCurrentLevel() == 15){
+		if(gsm.getCurrentLevel() == 14){
+		
 			ji.setPosition(100, 415);
 			rae.setPosition(130, 415);
+			
+			
 		}
-		
+		if(gsm.getCurrentLevel() == 15){
+			
+			ji.setPosition(100, 415);
+			rae.setPosition(130, 415);
+			
+		}
 		if(gsm.getCurrentLevel() == 16){
+			
 			ji.setPosition(285, 415);
 			rae.setPosition(315, 415);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level16.png");
+			image.setPosition(320, 288);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 17){
@@ -97,6 +110,9 @@ public class World2State extends GameState {
 		if(gsm.getCurrentLevel() == 18){
 			ji.setPosition(80, 240);
 			rae.setPosition(120, 240);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level18.png");
+			image.setPosition(320, 250);
+			pictures.add(image);
 		}
 
 }

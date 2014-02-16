@@ -59,6 +59,9 @@ public class World6State extends GameState {
 		
 		if(gsm.getCurrentLevel() == 47){
 			zav.setPosition(446, 197);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level47.png", 1536, 896);
+			image.setPosition(768, 448);
+			pictures.add(image);
 		}
 	}	
 	@Override

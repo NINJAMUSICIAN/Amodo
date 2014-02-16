@@ -71,20 +71,21 @@ public class World4State extends GameState {
 			rae.setPosition(560, 458);
 			ji.setPosition(520, 458);
 			setActivePlayer(0);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level27.png", 640, 576);
+			image.setPosition(320, 288);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 28){
 			rae.setPosition(560, 100);
 			ji.setPosition(80, 256);
-			image = new Images(tileMap, "/Backgrounds/Texts/Level28.png");
-			image.setPosition(320, 240);
-			pictures.add(image);
+			
 		}
 		
 		if(gsm.getCurrentLevel() == 29){
 			rae.setPosition(80, 100);
 			ji.setPosition(560, 256);
-			image = new Images(tileMap, "/Backgrounds/Texts/Level29.png");
+			image = new Images(tileMap, "/Backgrounds/Texts/Level29.png", 640, 480);
 			image.setPosition(320, 240);
 			pictures.add(image);
 		}
@@ -100,6 +101,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() == 31){
 			zav.setPosition(544, 80);
 			rae.setPosition(80, 80);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level31.png", 640, 576);
+			image.setPosition(320, 288);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 32){
@@ -110,6 +114,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() == 33){
 			rae.setPosition(310, 700);
 			zav.setPosition(370, 700);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level33.png", 672, 896);
+			image.setPosition(336, 448);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 34){
@@ -119,6 +126,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() == 35){
 			rae.setPosition(400, 415);
 			zav.setPosition(230, 460);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level35.png", 640, 672);
+			image.setPosition(320, 336);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 36){
@@ -128,6 +138,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() == 37){
 			rae.setPosition( 258, 90);
 			zav.setPosition(384, 90);
+			image = new Images(tileMap, "/Backgrounds/Texts/Level37.png", 640, 896);
+			image.setPosition(320, 448);
+			pictures.add(image);
 		}
 		
 		if(gsm.getCurrentLevel() == 38){
