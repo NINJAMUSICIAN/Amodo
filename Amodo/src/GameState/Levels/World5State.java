@@ -287,6 +287,17 @@ public class World5State extends GameState {
 		}
 	}
 	
+	public void check46Door(){
+		if(door1.isSatisfied()){
+			fadeout.go();
+			if(fadeout.isDone()){
+			players.clear();
+			gsm.currentLevel = 47;
+			gsm.setState(GameStateManager.LOADINGSTATE);
+			}
+		}
+	}
+	
 	public void whatUpdate(){
 		if(gsm.getCurrentLevel() == 41){
 			checkColoredDoors();
@@ -310,7 +321,7 @@ public class World5State extends GameState {
 			door.checkAta(ata, moved);
 		}
 		if(gsm.getCurrentLevel() == 46){
-			checkRegularDoor();
+			check46Door();
 			door1.checkJi(ji, moved);
 		}
 	}

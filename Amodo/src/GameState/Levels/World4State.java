@@ -142,6 +142,9 @@ public class World4State extends GameState {
 		if(gsm.getCurrentLevel() == 40){
 			rae.setPosition(1424, 940);//1424 940
 			zav.setPosition(1286, 940);//
+			image = new Images(tileMap, "/Backgrounds/Texts/Level40.png", 2816, 1056);
+			image.setPosition(1408, 528);
+			pictures.add(image);
 		}
 		
 	}	
